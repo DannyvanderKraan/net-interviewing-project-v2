@@ -77,6 +77,3 @@ things like that.
   - Furthermore when it's background processes I'm used to event-driven systems that throw the messages after a couple of retries back on a poison queue 
   (the system keeps running and you just need to monitor these poison queues); but as for API's concerned they are usually called from a front-end or another 
   app and you need some imediate feedback that something happened (a Bad Request for example)
-
-aant:
-- Check de "What we expect in your solution"
