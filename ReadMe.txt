@@ -11,14 +11,14 @@ because I like that guidance while making unit tests.
 
 Task 2 [Refactoring]
 Because I've already added the unittests I needed to fix the bug with confidence, I was already sure I wouldn't break existing functionality 
-if I would refactor the CalculateInsurance method of the HomeController which houses the implemented functionality.
+if I would refactor the CalculateInsurance method of the InsuranceController(HomeController) which houses the implemented functionality.
 It violates several SOLID principles to be honest and would be a nightmare for your collegea's to expand or maintain (or fix bugs in).
 
 	Steps taken:
 	- I got rid of as much magic strings and numbers as I could by replacing them with constants and other methods, see for instance 
 	the constants in ControllerTestStartup (let us not make Uncle Bob write another book please)
 	- Gave everything clearer names, for instance UnitTest1 is not a clear name while CalculateInsuranceTests is.
-	I kept the InsuranceDto which is passed along in the HomeController the same, altough I don't think it's clear for and ProductDto would be 
+	I kept the InsuranceDto which is passed along in the InsuranceController(HomeController) the same, altough I don't think it's clear for and ProductDto would be 
 	clearer. But i kept is the same because else I'd also have to version the API to stay backwards compatible, and this assesment case is big enough... ;)
 	- Moved classes to their own file and under a clear folder so stuff is not hidden and more clearer to see, like 
 	ControllerTestFixture under the Fixtures folder 
@@ -35,14 +35,14 @@ It violates several SOLID principles to be honest and would be a nightmare for y
 	- To continue about the magic strings, I moved the Laptops and Smartphones magic strings to IProductTypeRepository, so that they wouldn't 
 	bleed out to the rest of the code. But I wouldn't provide the product types via an API like this, but I would make it an enum 
 	in a shared NuGet package. Because you've got logic dependant on these product type names anyhow you might as wel make it explicit.
-	- Refactored the Product API url const in HomeController to be injected where needed via de IOptions model
-	- Renamed HomeController to InsuranceController and removed "api/insurance" from the routes and added a route attribute to the class 
+	- Refactored the Product API url const in InsuranceController(HomeController) to be injected where needed via de IOptions model
+	- Renamed InsuranceController(HomeController) to InsuranceController and removed "api/insurance" from the routes and added a route attribute to the class 
 	to improve the maintenance of the routes
 	- Added XML tags to make my collegea's really happy with me (everything for a smile)
 
 Task 3 [Feature 1]
 For this feature it seemed fine to provide a list of product Ids to the InsuranceCalculator and call the existing method to caculate the insurance value 
-per product id. I already decided to keep the provided approach in HomeController the same, so I've made OrderDto to match the style.
+per product id. I already decided to keep the provided approach in InsuranceController(HomeController) the same, so I've made OrderDto to match the style.
 So my assumption is that the concerning product Ids are provided to this API via an order DTO.
 I've added one unit test to test the working of this new method, because 100% coverage is not a goal in itself. 
 Reading task 4 feature 2 I started to assume an order has a total insurance value, so I implemented this.
@@ -77,8 +77,6 @@ things like that.
   - Furthermore when it's background processes I'm used to event-driven systems that throw the messages after a couple of retries back on a poison queue 
   (the system keeps running and you just need to monitor these poison queues); but as for API's concerned they are usually called from a front-end or another 
   app and you need some imediate feedback that something happened (a Bad Request for example)
-
-P.S.: I've left launchSettings.json for now even though weatherforecast doesn't exist
 
 aant:
 - Check de "What we expect in your solution"
